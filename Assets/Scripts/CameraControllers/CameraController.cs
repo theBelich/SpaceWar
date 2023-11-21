@@ -6,13 +6,30 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private float cameraMoveSpeed;
 
+    [SerializeField] private Transform _targetOnView;
+    [SerializeField] private Transform _highViewTarget;
+
     private float viewSpeedCoefficient = 1;
     private float hiddenAccelerator = 1;
+
 
     private Vector3 oldMousePosition;
 
     void Update()
     {
+        var mouseWheel = Input.GetAxis("Mouse ScrollWheel");
+
+        if (mouseWheel > 0)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _targetOnView.position, mouseWheel * cameraMoveSpeed * hiddenAccelerator);
+        }
+
+        MouseMovement();
+    }
+
+    private void MouseMovement()
+    {
+
         if (Input.GetMouseButtonDown(0))
         {
             oldMousePosition = Input.mousePosition;
@@ -39,6 +56,15 @@ public class CameraController : MonoBehaviour
         transform.Translate(diff);
     }
 
+    public void SetTarget(Transform targetOnView, Transform highViewTarget)
+    {
+        _targetOnView = targetOnView;
+        if (highViewTarget == null)
+        {
+            _highViewTarget = targetOnView;
+        }
+        _highViewTarget = highViewTarget;
+    }
 
     public void ChangeViewSpeedCoefficient(int currentViewIndex)
     {

@@ -9,6 +9,8 @@ public class ViewController : MonoBehaviour
     [SerializeField] private CameraController _cameraController;
     private int _currentView;
 
+    public System.Action<int> OnViewChanges;
+
     void Update()
     {
         if (Mathf.Abs(_cameraPosition.localPosition.y) >= 150  && _currentView == 0)
@@ -38,5 +40,6 @@ public class ViewController : MonoBehaviour
         _currentView += count;
         _views[_currentView].SetActive(true);
         _cameraController.ChangeViewSpeedCoefficient(_currentView);
+        OnViewChanges?.Invoke(_currentView);
     }
 }

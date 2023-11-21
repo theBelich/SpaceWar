@@ -6,6 +6,11 @@ public class CelestialBodyInfo : MonoBehaviour
 {
     [SerializeField] private Transform _parentSystem;
     
+    public void SetParentSystem(Transform parent)
+    {
+        _parentSystem = parent;
+    }
+
     public Transform GetParentSystem()
     {
         return _parentSystem;
