@@ -1,27 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class PlanetLoader : MonoBehaviour
 {
-    [SerializeField] private CameraController _cameraController;
-    [SerializeField] private ViewController _viewController;
-    [SerializeField] private StarSystemInfo _clusterInfo;
+    [SerializeField] private Transform _camera;
+    [SerializeField] private Vector3 _halfExtends;
 
-    [SerializeField] private Transform target;
-    [SerializeField] private Transform parentTarget;
+    private bool planetsLoaded = false;
+    private bool planetsUnloaded = true;
 
-    private int layer;
-
-    private void Start()
-    {
-        _viewController.OnViewChanges += SetViewIndex;
-    }
-
-    private void OnDisable()
-    {
-        
-    }
+    private StarSystemInfo _planetSystemInfo;
 
     void Update()
     {
@@ -31,52 +22,47 @@ public class PlanetLoader : MonoBehaviour
 
     private void SetTarget()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (_camera.position.y < 180)
         {
-            var ray = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out var hitInfo);
-            if (ray)
+            if (planetsLoaded)
             {
-                target = hitInfo.transform;
-                
-                if (hitInfo.transform.TryGetComponent<CelestialBodyInfo>(out var parentCelestialBodyInfo))
-                {
-                    parentTarget = parentCelestialBodyInfo.GetParentSystem();
-                }
-                else
-                {
-                    parentTarget = null;
-                }
-
-                _cameraController.SetTarget(target, parentTarget);
+                return;
             }
 
-            if (layer == 1)
+            if (Physics.BoxCast(_camera.position, _halfExtends, Vector3.down))
             {
-                LoadPlanetSystem();
+                var hitInfos = Physics.BoxCastAll(_camera.position, _halfExtends, Vector3.down);
+
+                if (hitInfos.Length > 1)
+                {
+                    return;
+                }
+                LoadPlanetSystem(hitInfos[0].transform);
+                planetsLoaded = true;
+                planetsUnloaded = false;
             }
+        }
+        else
+        {
+            if (planetsUnloaded) 
+            {
+                return;
+            }
+            UnloadPlanets();
+            planetsUnloaded = true;
+            planetsLoaded = false;
         }
 
     }
 
-    private void LoadPlanetSystem()
+    private void LoadPlanetSystem(Transform target)
     {
-        var planets = target.GetComponent<ClusterInfo>().GetPlanets();
-        _clusterInfo.InitPlanets(target, planets);
+        _planetSystemInfo = target.GetComponent<StarSystemInfo>();
+        _planetSystemInfo.InitPlanets(target);
     }
 
-    private void LoadCluster()
+    private void UnloadPlanets()
     {
-
-    }
-
-    private void LoadGalaxy()
-    {
-
-    }
-
-
-    private void SetViewIndex(int viewIndex)
-    {
-        this.layer = viewIndex;
+        _planetSystemInfo.TurnOffPlanets();
     }
 }

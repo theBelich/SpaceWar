@@ -183,9 +183,9 @@ GameObject:
   - component: {fileID: 563702582225238253}
   - component: {fileID: 5253249167653274448}
   - component: {fileID: 5870871250251858365}
-  - component: {fileID: 3073046775114269508}
   - component: {fileID: 8555725527304310985}
-  m_Layer: 0
+  - component: {fileID: 2381048546684114099}
+  m_Layer: 6
   m_Name: Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 8901613924918789042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1181793238964817469}
@@ -258,27 +258,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3073046775114269508
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8901613924918789042}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8555725527304310985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,3 +270,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a56f33e2e68b4ee8b8c15245527cf6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parentSystem: {fileID: 0}
+--- !u!114 &2381048546684114099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901613924918789042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: b48afc91c6596624187ec0bc10fe9892, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0

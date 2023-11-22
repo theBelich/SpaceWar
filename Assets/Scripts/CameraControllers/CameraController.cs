@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private float cameraMoveSpeed;
-
+    [SerializeField] private Camera _camera;    
     [SerializeField] private Transform _targetOnView;
-    [SerializeField] private Transform _highViewTarget;
+    [SerializeField] private float _cameraMoveSpeed;
+    [SerializeField] private float _cameraMoveToTargetSpeed;
 
     private float viewSpeedCoefficient = 1;
     private float hiddenAccelerator = 1;
 
+    private int clickCount;
+    private float timeBetweenClicks;
+    private const float TIME_TO_DOUBLECLICK = 0.5f;
+
+    private Vector3 starPositon;
+    private bool InPosition = true;
 
     private Vector3 oldMousePosition;
 
     void Update()
     {
-        var mouseWheel = Input.GetAxis("Mouse ScrollWheel");
-
-        if (mouseWheel > 0)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, _targetOnView.position, mouseWheel * cameraMoveSpeed * hiddenAccelerator);
-        }
-
         MouseMovement();
+        MoveToTarget();
     }
 
     private void MouseMovement()
@@ -33,6 +33,7 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             oldMousePosition = Input.mousePosition;
+            clickCount++;
         }
 
         if (!Input.GetMouseButton(0))
@@ -46,7 +47,7 @@ public class CameraController : MonoBehaviour
 
         var diff = oldMousePosition - Input.mousePosition;
         diff = new Vector3(diff.x, 0, diff.y);
-        diff = diff.normalized * cameraMoveSpeed * viewSpeedCoefficient * hiddenAccelerator * Time.deltaTime;
+        diff = diff.normalized * _cameraMoveSpeed * viewSpeedCoefficient * hiddenAccelerator * Time.deltaTime;
 
         if (hiddenAccelerator < 10)
         {
@@ -56,14 +57,50 @@ public class CameraController : MonoBehaviour
         transform.Translate(diff);
     }
 
-    public void SetTarget(Transform targetOnView, Transform highViewTarget)
+    private void MoveToTarget()
+    {
+        if (clickCount != 0)
+        {
+            timeBetweenClicks += Time.deltaTime;
+        }
+
+        if (timeBetweenClicks > TIME_TO_DOUBLECLICK)
+        {
+            timeBetweenClicks = 0;
+            clickCount = 0;
+            return;
+        }
+
+        if (clickCount == 2)
+        {
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out var hitInfo))
+            {
+                starPositon = hitInfo.transform.position;
+                starPositon.y = 0;
+                InPosition = false;
+            }
+            clickCount = 0;
+        }
+
+        if (InPosition)
+        {
+            return;
+        }
+
+        if (transform.position != starPositon)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, starPositon, _cameraMoveToTargetSpeed);
+        }
+        else
+        {
+            InPosition = true;
+        }
+    }
+
+    public void SetTarget(Transform targetOnView)
     {
         _targetOnView = targetOnView;
-        if (highViewTarget == null)
-        {
-            _highViewTarget = targetOnView;
-        }
-        _highViewTarget = highViewTarget;
+        
     }
 
     public void ChangeViewSpeedCoefficient(int currentViewIndex)

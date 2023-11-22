@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlanetMovement : MonoBehaviour
 {
-    [SerializeField] private CelestialBodyInfo parent;
     [SerializeField] private Transform OrbitingObject;
     private Ellipse orbitPath;
 

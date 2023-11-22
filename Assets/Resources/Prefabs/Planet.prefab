@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6307609824850801216
 RectTransform:
   m_ObjectHideFlags: 0
@@ -185,10 +185,8 @@ GameObject:
   - component: {fileID: 808447654329764187}
   - component: {fileID: 5014907559373471790}
   - component: {fileID: 1549149543119800124}
-  - component: {fileID: 6935270816900048320}
   - component: {fileID: 2979789646096723613}
   - component: {fileID: 1884498685418460579}
-  - component: {fileID: 2409039169051615634}
   - component: {fileID: 4435962822170346081}
   - component: {fileID: 1134143503774262166}
   m_Layer: 0
@@ -206,7 +204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5471836961656801165}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.4, y: 0, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -264,27 +262,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6935270816900048320
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5471836961656801165}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2979789646096723613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,8 +276,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 1884498685418460579}
   ellipseRenderer: {fileID: 4435962822170346081}
-  celestialBodyInfo: {fileID: 2409039169051615634}
   parent: {fileID: 0}
+  material: {fileID: 2100000, guid: 07c8f6bcb43754fa9b23e006c5c846be, type: 2}
+  fadeCoefficient: 2
   planet:
     ellipse:
       xAxis: 0
@@ -318,21 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d9505b5c13f489d90c38d1c2eb650c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 2409039169051615634}
   OrbitingObject: {fileID: 0}
---- !u!114 &2409039169051615634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5471836961656801165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a56f33e2e68b4ee8b8c15245527cf6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _parentSystem: {fileID: 0}
 --- !u!114 &4435962822170346081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lineRenderer: {fileID: 1134143503774262166}
+  _starSystem: {fileID: 0}
   segments: 19
   ellipse:
     xAxis: 5

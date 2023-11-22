@@ -17,6 +17,8 @@ public class CameraZoom : MonoBehaviour
             return;
         }
 
+        if (mouseWheel == 0) return;
+
         _hiddenAccelerator += 1;
         transform.Translate(Vector3.forward * mouseWheel * _speed * _hiddenAccelerator);
 
