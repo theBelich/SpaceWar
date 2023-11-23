@@ -2,125 +2,108 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Profiling;
+using UnityEngine.Rendering.PostProcessing;
 
 public class FadeMaterials : MonoBehaviour
 {
+    [SerializeField] private Transform _camera;
+    [SerializeField] private float startFadeDistance;
+    [SerializeField] private float fadeDistance;
+    [SerializeField] private bool invert;
+    
+    [SerializeField] private PostProcessProfile profile;
+    [SerializeField] private Material material;
+    [SerializeField] private Color defaultMaterialColor;
+    [SerializeField] private Color defaultEmissionColor;
 
-    [SerializeField] private Transform _cameraPosition;
-    [SerializeField] private float StartFadeTime;
-    [Header("Borders")]
-    [SerializeField] private Vector2 PlanetBorder;
-    [SerializeField] private Vector2 ClusterBorder;
-
-    [Header("Materials")]
-    [SerializeField] private List<Material> materials;
-    [SerializeField] private Material lineRendererMaterial;
-
-
-    private bool IsFadingIn;
-    private bool IsFadingOut;
-
-    public Material currentMaterial;
-    public float fadeTime;
-    public bool enableFading = false;
-
-    private int currentLayerIndex;
-    private Vector2 currentBorder;
+    private Color color;
+    private Color emissionColor;
 
     private void Awake()
     {
-        fadeTime = 0;
-
-        ResetMaterials();
-        currentMaterial = materials[currentLayerIndex];
+        defaultMaterialColor = material.color;
+        defaultEmissionColor = material.GetColor("_EmissionColor");
+        color = material.color;
     }
 
     private void OnDisable()
     {
-        ResetMaterials();
+        material.color = defaultMaterialColor;
+        if (profile != null)
+        {
+            ResetBloom();
+        }
     }
 
-    public void Update()
+    void Update()
     {
-        var mouseWheel = Input.GetAxis("Mouse ScrollWheel");
 
-        if (mouseWheel < 0)
+        // ¬ычисл€ем рассто€ние между объектом и источником
+        float distance = _camera.transform.localPosition.y - startFadeDistance;
+
+        if (invert)
         {
-            var dist =  _cameraPosition.localPosition.y - currentBorder.x;
+            distance *= -1;
+        }
 
-            if (dist > 0)
+
+        if (distance > fadeDistance)
+        {
+            // ≈сли рассто€ние больше заданной дистанции, прозрачность материала устанавливаетс€ на 0 (полностью прозрачный)
+            SetAlpha(0);
+        }
+        else
+        {
+            // »наче, прозрачность устанавливаетс€ пропорционально рассто€нию от источника
+            float opacity = 1.0f - (distance / fadeDistance);
+            ChangeAlphaMaterial(1.0f - (distance / fadeDistance));
+
+            if (profile != null)
             {
-                fadeTime = dist / currentBorder.y;
+                ChangeBloomIntencity(opacity);
             }
+
         }
-        if (mouseWheel > 0)
+    }
+
+    private void ChangeAlphaMaterial(float count)
+    {
+
+        if (count > 1)
         {
-            var dist = _cameraPosition.localPosition.y - currentBorder.x;
-
-            if (dist > 0)
-            {
-                fadeTime = dist / currentBorder.y;
-            }
+            color.a = 1;
         }
-
-        
-    }
-
-    private void ResetMaterials()
-    {
-        ResetAlpha(materials[0], 0);
-
-        ResetAlpha(materials[1], 1);
-        ResetEmission(materials[1]);
-
-        ResetAlpha(materials[2], 0);
-    }
-
-
-    public void ChangeLayer(int layer)
-    {
-        currentLayerIndex = layer;
-        currentMaterial = materials[currentLayerIndex];
-        if (layer == 0)
+        else
         {
-            currentBorder = PlanetBorder;
+            color.a = count;
         }
-        if (layer == 1)
-        {
-            currentBorder = ClusterBorder;
-        }
+
+        material.color = color;
     }
 
-    public void FadeIn()
+
+    private void SetAlpha(float count)
     {
-        IsFadingIn = true;
+        color.a = count;
+
+        material.color = color;
     }
 
-    public void FadeOut()
+
+    private void ChangeBloomIntencity(float count)
     {
-        IsFadingOut = true;
+        var bloom = profile.GetSetting<Bloom>();
+        bloom.intensity.value = count * 10;
+        var inv = 1 - count;
+        material.SetColor("_EmissionColor", new Color(count, 0, 0, inv));
     }
 
-    public void FadeIn(Material material)
+    private void ResetBloom()
     {
-        
-        material.color = new Color(material.color.r, material.color.g, material.color.b, fadeTime);
-    }
-
-    public void ResetAlpha(Material material, float count)
-    {
-        material.color = new Color(material.color.r, material.color.g, material.color.b, count);
-    }
-
-    public void ResetEmission(Material material)
-    {
-        material.SetColor("_EmissionColor", new Color(1, 0, 0, 1));
-    }
-
-    private void ChangeEmissionColor()
-    {
-        var lerp = Mathf.Lerp(0,1, fadeTime);
-        var invertedLerp = Mathf.Lerp(1, 0, fadeTime);
-        materials[1].SetColor("_EmissionColor", new Color(lerp, 0, 0, 1));
+        var bloom = profile.GetSetting<Bloom>();
+        bloom.intensity.value = 10;
+        material.SetColor("_EmissionColor", defaultEmissionColor);
     }
 }

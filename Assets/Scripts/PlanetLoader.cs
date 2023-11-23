@@ -32,7 +32,7 @@ public class PlanetLoader : MonoBehaviour
     private bool ClusterFaded = true;*/
     private void Start()
     {
-        _fadeMaterials.ChangeLayer(layerIndex);
+        
     }
 
     void Update()

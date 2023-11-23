@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 279883053}
   - component: {fileID: 279883054}
-  - component: {fileID: 279883055}
   m_Layer: 0
   m_Name: PlanetLoader
   m_TagString: Untagged
@@ -152,7 +151,10 @@ Transform:
   m_LocalPosition: {x: 9.485636, y: 0, z: 1.1241472}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1015375367}
+  - {fileID: 2112106656}
+  - {fileID: 1564605708}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -168,36 +170,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163fcc02646b84d0e87829d5bed6f237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fadeMaterials: {fileID: 279883055}
+  _fadeMaterials: {fileID: 0}
   _planetSystemInfo: {fileID: 723509179}
   _visibleGalaxy: {fileID: 1430903712}
   _camera: {fileID: 963194228}
   _halfExtends: {x: 0, y: 0, z: 0}
   layerIndex: 1
---- !u!114 &279883055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279883052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d69b62c965acb84cb35512d3846450d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cameraPosition: {fileID: 963194228}
-  StartFadeTime: 0
-  PlanetBorder: {x: 160, y: 40}
-  ClusterBorder: {x: 980, y: 20}
-  materials:
-  - {fileID: 2100000, guid: 07c8f6bcb43754fa9b23e006c5c846be, type: 2}
-  - {fileID: 2100000, guid: 36bacd7d08e624930848ac665f76ede1, type: 2}
-  - {fileID: 2100000, guid: e856a86523062a94dab44f4a8085ae66, type: 2}
-  lineRendererMaterial: {fileID: 2100000, guid: c54e169217356624fabbb59bf282561b, type: 2}
-  currentMaterial: {fileID: 2100000, guid: e856a86523062a94dab44f4a8085ae66, type: 2}
-  fadeTime: 0
-  enableFading: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +599,58 @@ MonoBehaviour:
   _targetOnView: {fileID: 723509176}
   _cameraMoveSpeed: 5
   _cameraMoveToTargetSpeed: 15
+--- !u!1 &1015375366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1015375367}
+  - component: {fileID: 1015375368}
+  m_Layer: 0
+  m_Name: SolarFader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1015375367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015375366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 279883053}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1015375368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1015375366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d69b62c965acb84cb35512d3846450d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 963194228}
+  startFadeDistance: 0
+  fadeDistance: 1000
+  invert: 0
+  profile: {fileID: 11400000, guid: b48afc91c6596624187ec0bc10fe9892, type: 2}
+  material: {fileID: 2100000, guid: 36bacd7d08e624930848ac665f76ede1, type: 2}
+  defaultMaterialColor: {r: 0, g: 0, b: 0, a: 0}
+  defaultEmissionColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1083016446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1191,6 +1221,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d5faaf01a97c7b498f2e44dbc173269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1564605707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1564605708}
+  - component: {fileID: 1564605709}
+  m_Layer: 0
+  m_Name: GalaxyFader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1564605708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564605707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 279883053}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1564605709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1564605707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d69b62c965acb84cb35512d3846450d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 963194228}
+  startFadeDistance: 900
+  fadeDistance: 100
+  invert: 1
+  profile: {fileID: 0}
+  material: {fileID: 2100000, guid: e856a86523062a94dab44f4a8085ae66, type: 2}
+  defaultMaterialColor: {r: 0, g: 0, b: 0, a: 0}
+  defaultEmissionColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1850079016 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7771179442759275012, guid: 6558a030508c35a4f8177b9cce9f9819, type: 3}
@@ -1359,6 +1441,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d5faaf01a97c7b498f2e44dbc173269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2112106655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2112106656}
+  - component: {fileID: 2112106657}
+  m_Layer: 0
+  m_Name: PlanetFader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2112106656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112106655}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 279883053}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2112106657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112106655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d69b62c965acb84cb35512d3846450d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 963194228}
+  startFadeDistance: 50
+  fadeDistance: 200
+  invert: 0
+  profile: {fileID: 0}
+  material: {fileID: 2100000, guid: 07c8f6bcb43754fa9b23e006c5c846be, type: 2}
+  defaultMaterialColor: {r: 0, g: 0, b: 0, a: 0}
+  defaultEmissionColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &2133886395
 PrefabInstance:
   m_ObjectHideFlags: 0
