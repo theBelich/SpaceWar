@@ -5,13 +5,13 @@ using UnityEngine;
 public class StarSystemInfo : MonoBehaviour
 {
     [SerializeField] private List<PlanetInit> planetInfos;
-    [SerializeField] private ClusterInfo defaultCluster;
+    [SerializeField] private StarInfo defaultStar;
 
     public void InitPlanets(Transform starSystem)
     {
         TurnOffPlanets();
         transform.position =  new Vector3(starSystem.position.x, 0, starSystem.position.z);
-        var planets = defaultCluster.GetPlanets();
+        var planets = defaultStar.GetPlanets();
 
         for (int i = 0; i < planets.Count; i++)
         {

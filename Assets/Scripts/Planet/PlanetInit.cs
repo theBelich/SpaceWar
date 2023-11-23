@@ -38,8 +38,6 @@ public class PlanetInit : MonoBehaviour
     {
         var mouseWheel = Input.GetAxis("Mouse ScrollWheel");
 
-        Debug.Log(material.color.a);
-
         if (mouseWheel != 0)
         {
 

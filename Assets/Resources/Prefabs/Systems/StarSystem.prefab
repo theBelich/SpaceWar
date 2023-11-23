@@ -142,7 +142,7 @@ MonoBehaviour:
   - {fileID: 8441325515976778786}
   - {fileID: 4287480558352269895}
   - {fileID: 9196085656528529715}
-  defaultCluster: {fileID: 4165133844120790153}
+  defaultStar: {fileID: 4165133844120790153}
 --- !u!114 &4165133844120790153
 MonoBehaviour:
   m_ObjectHideFlags: 0

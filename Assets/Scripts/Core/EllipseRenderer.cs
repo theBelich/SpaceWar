@@ -13,18 +13,12 @@ public class EllipseRenderer : MonoBehaviour
     [SerializeField] private int segments;
     [SerializeField] private Ellipse ellipse;
 
-    private float fadeTime;
+    
 
     public void Init(Ellipse ellipse)
     {
         this.ellipse = ellipse;
         CalculateEllipse();
-    }
-
-    private void OnEnable()
-    {
-        fadeTime = 0;
-        FadeIn(_lineRenderer.material);
     }
 
     public void CalculateEllipse()
@@ -42,22 +36,5 @@ public class EllipseRenderer : MonoBehaviour
         _lineRenderer.SetPositions(points);
     }
 
-    private void Update()
-    {
-        var mouseWheel = Input.GetAxis("Mouse ScrollWheel");
-        if (mouseWheel != 0)
-        {
-            fadeTime += mouseWheel;
-
-
-            FadeIn(_lineRenderer.material);
-        }
-    }
-
-    void FadeIn(Material material)
-    {
-        material.color = new Color(material.color.r, material.color.g, material.color.b, Mathf.Lerp(0, 1, fadeTime));
-        
-    }
    
 }
