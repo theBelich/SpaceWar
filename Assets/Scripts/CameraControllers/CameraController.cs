@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Camera _camera;    
-    [SerializeField] private Transform _targetOnView;
     [SerializeField] private float _cameraMoveSpeed;
     [SerializeField] private float _cameraMoveToTargetSpeed;
 
@@ -97,11 +96,6 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void SetTarget(Transform targetOnView)
-    {
-        _targetOnView = targetOnView;
-        
-    }
 
     public void ChangeViewSpeedCoefficient(int currentViewIndex)
     {

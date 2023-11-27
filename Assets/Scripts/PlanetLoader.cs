@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 public class PlanetLoader : MonoBehaviour
 {
     [Header("Scripts")]
-    [SerializeField] private FadeMaterials _fadeMaterials;
     [SerializeField] private StarSystemInfo _planetSystemInfo;
     [SerializeField] private VisibleGalaxy _visibleGalaxy;
     [Header("UnityComponents")]
@@ -94,46 +93,7 @@ public class PlanetLoader : MonoBehaviour
         _planetSystemInfo.TurnOffPlanets();
     }
 
-    /*private void FadeInPlanets()
-    {
-        if (_camera.localPosition.y < 180 && planedFaded)
-        {
-            layerIndex = 0;
-            _fadeMaterials.ChangeLayer(0);
-            _fadeMaterials.FadeIn();
-            planedFaded = false;
-        }
-
-        if (_camera.localPosition.y >= 180 && !planedFaded)
-        {
-            _fadeMaterials.FadeOut();
-            layerIndex = 1;
-            _fadeMaterials.ChangeLayer(1);
-            planedFaded = true;
-        }
-
-        if (_camera.localPosition.y >= 200 && !planedFaded)
-        {
-            _fadeMaterials.FadeOut();
-            layerIndex = 1;
-            _fadeMaterials.ChangeLayer(1);
-            planedFaded = true;
-        }
-
-        if (_camera.localPosition.y > 990 && !starsFaded)
-        {
-            _fadeMaterials.FadeOut();
-            starsFaded = true;
-            
-        }
-
-        if(_camera.localPosition.y > 1000 && )
-        {
-
-            _fadeMaterials.FadeIn();
-        }
-    }*/
-
+    
     //STARS FUNCTIONS
 
     private void SpawnStarDistanceCheck()
